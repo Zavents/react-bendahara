@@ -1,12 +1,10 @@
-// src/MahasiswaDashboard.jsx
 import React, { useState, useEffect } from 'react';
-import { supabase } from './supabaseClient'; // Path sudah benar
-// import './MahasiswaDashboard.css'; // Tetap dikomentari/dihapus karena tidak ada di struktur folder Anda
+import { supabase } from './supabaseClient'; 
+// import './MahasiswaDashboard.css'; // Dihapus karena file tidak ada di struktur folder Anda
 
-// --- KOMPONEN CARD STATUS BARU ---
+// --- KOMPONEN CARD STATUS ---
 const StatusCard = ({ title, count, type }) => {
     let className = "status-card";
-    // Menambahkan style inline atau class yang spesifik untuk memisahkan kartu
     let indicatorColor;
     if (type === 'lunas') {
         className += " success";
@@ -23,29 +21,23 @@ const StatusCard = ({ title, count, type }) => {
         <div 
             className={className} 
             style={{ 
-                // Style baru untuk tampilan kartu yang lebih menonjol
                 display: 'flex',
                 alignItems: 'center',
                 padding: '15px',
                 marginBottom: '10px',
                 borderRadius: '8px',
-                borderLeft: `5px solid ${indicatorColor}`, // Garis indikator
-                backgroundColor: 'var(--bg-secondary)', // Background gelap
+                borderLeft: `5px solid ${indicatorColor}`, 
+                backgroundColor: 'var(--bg-secondary)', 
             }}
         >
-            <div 
-                style={{ 
-                    borderLeft: `5px solid ${indicatorColor}`, 
-                    paddingLeft: '10px' 
-                }}
-            >
+            <div style={{ paddingLeft: '10px' }}>
                 <p 
                     className="status-title" 
                     style={{ 
                         margin: 0, 
                         fontWeight: 'bold', 
                         fontSize: '1.2em',
-                        color: indicatorColor // Warna judul mengikuti indikator
+                        color: indicatorColor 
                     }}
                 >
                     {title}
@@ -65,7 +57,7 @@ const StatusCard = ({ title, count, type }) => {
     );
 };
 
-// Komponen Utama Dashboard
+// --- KOMPONEN UTAMA DASHBOARD ---
 function MahasiswaDashboard({ user }) {
     const [duesToPay, setDuesToPay] = useState([]); 
     const [duesPaid, setDuesPaid] = useState([]);   
@@ -98,7 +90,7 @@ function MahasiswaDashboard({ user }) {
                 return;
             }
 
-            // 2. Proses Data untuk Ringkasan dan Daftar
+            // 2. Proses Data dari user_due_status (LUNAS/NYICIL/BELUM BAYAR DENGAN TRANSAKSI 0)
             let lunasCount = 0;
             let nyicilCount = 0;
             let belumBayarCount = 0;
@@ -119,21 +111,21 @@ function MahasiswaDashboard({ user }) {
                 } else if (paid > 0 && remaining > 0) {
                     nyicilCount++;
                     toPayList.push({ ...dueStatus, title, remaining: remaining, status: 'Dicicil' });
-                } else {
+                } else { // (paid == 0 && remaining > 0)
                     belumBayarCount++;
                     toPayList.push({ ...dueStatus, title, remaining: remaining, status: 'Belum Bayar' });
                 }
             });
 
-            // LOGIKA TAMBAHAN: Untuk iuran yang belum pernah ada di 'user_due_status'
+            // LOGIKA TAMBAHAN: Untuk iuran yang belum pernah ada di 'user_due_status' (belum ada transaksi sama sekali)
             const { data: allDues, error: duesError } = await supabase.from('dues').select('id, title, required_amount');
 
             if (!duesError && allDues) {
                 const existingDueIds = new Set(userDuesStatus.map(s => s.due_id));
                 
                 allDues.forEach(due => {
+                    // Cek jika iuran ini tidak ada di data status AND iuran ini wajib (> 0)
                     if (!existingDueIds.has(due.id) && Number(due.required_amount) > 0) {
-                        // Tambahkan sebagai 'Belum Bayar' jika belum ada di status transaksi sama sekali
                         belumBayarCount++;
                         toPayList.push({
                             due_id: due.id,
@@ -152,6 +144,7 @@ function MahasiswaDashboard({ user }) {
                 cicil: nyicilCount, 
                 belum: belumBayarCount 
             });
+            // Menggunakan Set untuk menghindari duplikasi dari logika tambahan
             setDuesToPay(Array.from(new Set(toPayList)));
             setDuesPaid(paidList);
 
@@ -212,7 +205,17 @@ function MahasiswaDashboard({ user }) {
     
     // --- Render Dashboard ---
     return (
-        <div className="mahasiswa-dashboard">
+        // Style untuk Full Width (kiri full)
+        <div 
+            className="mahasiswa-dashboard"
+            style={{ 
+                width: '100%',         
+                maxWidth: 'none',       
+                margin: '0 auto',       
+                padding: '20px',        
+                boxSizing: 'border-box' 
+            }}
+        >
             <h1>Dashboard Mahasiswa: Status Iuran</h1>
             
             <div className="contact-admin" style={{ padding: '15px', borderRadius: '8px', backgroundColor: 'var(--accent-blue-dark)', color: '#fff' }}>
@@ -227,7 +230,7 @@ function MahasiswaDashboard({ user }) {
 
             <hr style={{ margin: '20px 0' }}/>
 
-            {/* RINGKASAN STATUS IURAN (Diubah ke Tampilan Card Stacked) */}
+            {/* RINGKASAN STATUS IURAN (Card Style) */}
             <h2>Ringkasan Status Iuran</h2>
             <div className="status-summary" style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                 <StatusCard 
@@ -249,7 +252,7 @@ function MahasiswaDashboard({ user }) {
 
             <hr style={{ margin: '20px 0' }}/>
 
-            {/* DAFTAR IURAN YANG PERLU DIBAYAR */}
+            {/* DAFTAR IURAN YANG PERLU DIBAYAR (Card Style) */}
             <h2>Iuran yang Perlu Dibayar/Dicicil ({duesToPay.length})</h2>
             {duesToPay.length === 0 ? (
                 <div className="alert success" style={{ padding: '15px', borderRadius: '5px', backgroundColor: 'var(--accent-success-light)', color: 'var(--text-primary)' }}>SEMUA IURAN ANDA SUDAH LUNAS!</div>
@@ -268,7 +271,7 @@ function MahasiswaDashboard({ user }) {
             
             <hr style={{ margin: '20px 0' }}/>
 
-            {/* RIWAYAT PEMBAYARAN */}
+            {/* RIWAYAT PEMBAYARAN (Card Style) */}
             <h2>Riwayat Pembayaran Anda ({transactions.length})</h2>
             {transactions.length === 0 ? (
                 <div className="alert info" style={{ padding: '15px', borderRadius: '5px', backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>Belum ada riwayat pembayaran yang tercatat.</div>
