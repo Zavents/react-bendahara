@@ -788,7 +788,7 @@ button:hover {
 .btn-action.btn-delete:hover:not(:disabled) {
     background-color: #c0392b;
 }
-
+ 
 .btn-action.btn-default {
     background-color: #f1f1f1; /* Abu-abu terang */
     color: #333;
