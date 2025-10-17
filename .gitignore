@@ -1,0 +1,32 @@
+# Logs
+# Ignore all files ending in .log
+*.log
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+lerna-debug.log
+
+# Dependencies and Build Artifacts
+/node_modules
+/dist
+/dist-ssr
+/coverage
+
+# Environment Variables
+# IGNORE ALL LOCAL ENVIRONMENT FILES (they contain sensitive keys)
+# The .env.local file you explicitly added is here.
+.env.local
+.env.*.local
+
+# Project Files and System Files
+# Files commonly created by editors or OS
+.vscode/*
+!.vscode/extensions.json # KEEP extensions.json (optional)
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
