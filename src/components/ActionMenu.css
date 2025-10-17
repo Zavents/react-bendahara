@@ -1,0 +1,72 @@
+/* src/components/ActionMenu.css */
+
+/* 1. OVERLAY (Untuk latar belakang transparan penuh layar) */
+.action-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Sedikit gelap */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Pastikan di atas elemen lain */
+}
+
+/* 2. MODAL CONTAINER */
+.action-menu-modal {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.action-menu-modal h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.2em;
+}
+
+/* 3. BUTTONS */
+.action-menu-options {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+}
+
+.action-menu-options button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s, opacity 0.2s;
+    flex-grow: 1;
+}
+
+.action-menu-options button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Style spesifik untuk tombol 'delete' dan 'default' */
+.btn-action.btn-delete {
+    background-color: #e74c3c; /* Merah */
+    color: white;
+}
+.btn-action.btn-delete:hover:not(:disabled) {
+    background-color: #c0392b;
+}
+
+.btn-action.btn-default {
+    background-color: #f1f1f1; /* Abu-abu terang */
+    color: #333;
+}
+.btn-action.btn-default:hover:not(:disabled) {
+    background-color: #ddd;
+}
