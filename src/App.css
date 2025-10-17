@@ -796,3 +796,186 @@ button:hover {
 .btn-action.btn-default:hover:not(:disabled) {
     background-color: #ddd;
 }
+/* Tambahkan ini di bagian bawah file CSS Anda */
+
+.dashboard-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.welcome-message {
+    color: var(--color-primary);
+    margin-bottom: 5px;
+}
+
+.dashboard-intro {
+    color: var(--color-text-secondary);
+    margin-bottom: 20px;
+}
+
+.admin-contact-info {
+    background-color: var(--color-background-card);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border: 1px solid var(--color-border);
+}
+
+.whatsapp-link {
+    font-weight: bold;
+    color: var(--accent-success); /* Warna hijau WhatsApp */
+    text-decoration: none;
+    margin-left: 10px;
+    transition: opacity 0.2s;
+}
+
+.whatsapp-link:hover {
+    opacity: 0.8;
+}
+
+.section-title {
+    margin-top: 40px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--color-border);
+    font-size: 1.8rem;
+}
+
+.unpaid { border-color: var(--accent-red); color: var(--accent-red); }
+.partial { border-color: var(--accent-gold); color: var(--accent-gold); }
+.paid { border-color: var(--accent-success); color: var(--accent-success); }
+
+.section-subtitle {
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.no-dues-message {
+    padding: 20px;
+    border: 1px dashed var(--color-border);
+    border-radius: 6px;
+    text-align: center;
+    color: var(--color-text-secondary);
+    grid-column: 1 / -1; /* Membuat pesan menempati seluruh lebar */
+}
+
+.due-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.due-card {
+    background-color: var(--color-background-card);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-left: 8px solid; /* Diatur oleh properti borderLeftColor */
+    transition: transform 0.2s;
+}
+
+.due-card:hover {
+    transform: translateY(-3px);
+}
+
+.due-card h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.due-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.amount-text {
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+/* Status Lunas Badge */
+.lunas-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(3, 166, 100, 0.1); /* Hijau muda */
+    color: var(--accent-success);
+    padding: 8px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+    background-color: var(--color-border);
+    border-radius: 5px;
+    height: 8px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress-bar {
+    height: 100%;
+    transition: width 0.5s ease;
+}
+
+.btn-history {
+    margin-top: 15px;
+    padding: 8px 15px;
+    background: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-history:hover:not(:disabled) {
+    background-color: var(--color-border);
+}
+
+.btn-history:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+
+/* Styling Modal Riwayat Pembayaran */
+.history-table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.history-table th, .history-table td {
+    border: 1px solid var(--color-border);
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.history-table th {
+    background-color: var(--color-background-alt);
+    font-weight: bold;
+    color: var(--color-primary);
+    position: sticky;
+    top: 0;
+}
+
+.history-table tr:nth-child(even) {
+    background-color: var(--color-background-light);
+}
